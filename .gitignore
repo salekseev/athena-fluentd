@@ -1,0 +1,3 @@
+dist/opt/athena/fluentd/.bundle
+dist/opt/athena/fluentd/vendor/
+dist/opt/athena/fluentd/Gemfile.lock
