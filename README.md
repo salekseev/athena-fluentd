@@ -1,5 +1,9 @@
 - clone this repo onto a target OS.
 
+- if you're using a plain CentOS 7 install, you'll need some repos first:
+yum install epel-release centos-release-scl
+yum-config-manager --enable rhel-server-rhscl-7-rpms
+
 - to build this you need to install the following prerequisites:
 yum install gcc gcc-c++ make patch file libicu-devel zlib-devel libyaml-devel libxml2 libxml2-devel libxslt libxslt-devel git tar bzip2 jemalloc jemalloc-devel GeoIP GeoIP-devel snappy snappy-devel rh-ruby22-rubygem-bundler rh-ruby22-ruby-devel rh-ruby22-rubygems-devel rpm-build
 

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'fpm', '1.4.0'
 gem 'oj', '2.14.3'
+gem 'string-scrub', '0.0.5'
 gem 'fluentd', '0.12.20'
 gem 'fluent-plugin-buffer-event_limited', '0.1.6'
 gem 'fluent-plugin-string-scrub', '0.1.0'
