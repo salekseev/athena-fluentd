@@ -21,9 +21,9 @@
 scl="/opt/rh/rh-ruby22/enable"
 dir="/opt/athena/fluentd"
 exec="/opt/athena/fluentd/bin/fluentd"
-prog="fluentd"
-config="/etc/fluent/fluent.conf"
-logfile="/var/log/$prog.log"
+prog="athena-fluentd"
+config="/etc/athena-fluentd/athena-fluentd.conf"
+logfile="/var/log/athena-fluentd/$prog.log"
 
 pidfile="/var/run/$prog.pid"
 lockfile=/var/lock/subsys/$prog
@@ -35,7 +35,7 @@ start() {
     [ -x $exec ] || exit 6
     [ -f $config ] || exit 7
 
-    umask 077
+    umask 0022
 
     touch $logfile $pidfile
 
@@ -49,7 +49,7 @@ start() {
     ## &; action" but you can do "{cmd &}; action".
     daemon \
         --pidfile=$pidfile \
-        " { bundle exec $exec &>> $logfile & } ; echo \$! >| $pidfile "
+        " { bundle exec $exec -c $config &>> $logfile & } ; printf \$! >| $pidfile "
 
     retval=$?
     echo
@@ -63,7 +63,7 @@ stop() {
     killproc -p $pidfile $exec -INT
     retval=$?
     echo
-    [ $retval -eq 0 ] && rm -f $lockfile
+    [ $retval -eq 0 ] && rm -f $lockfile $pidfile
     return $retval
 }
 
