@@ -28,7 +28,7 @@ logfile="/var/log/athena-fluentd/$prog.log"
 pidfile="/var/run/$prog.pid"
 lockfile=/var/lock/subsys/$prog
 
-export LD_PRELOAD="/usr/lib64/libjemalloc.so"
+export LD_PRELOAD="$(ls /usr/lib64/libjemalloc.so* | head -n 1)"
 
 start() {
     [ -f $scl ] || exit 5
