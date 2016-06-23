@@ -25,15 +25,29 @@ prog="athena-fluentd"
 config="/etc/athena-fluentd/athena-fluentd.conf"
 logfile="/var/log/athena-fluentd/$prog.log"
 
-pidfile="/var/run/$prog.pid"
+pidfile="/var/run/athena-fluentd/$prog.pid"
 lockfile=/var/lock/subsys/$prog
 
 export LD_PRELOAD="$(ls /usr/lib64/libjemalloc.so* | head -n 1)"
 
 start() {
-    [ -f $scl ] || exit 5
-    [ -x $exec ] || exit 6
-    [ -f $config ] || exit 7
+    [ -f $scl ] || {
+        echo "Error: $scl not found, exiting."
+        exit 5
+    }
+    [ -x $exec ] || {
+        echo "Error: $exec not executable, exiting."
+        exit 6
+    }
+    [ -f $config ] || {
+        echo "Error: $config not found, exiting."
+        exit 7
+    }
+
+    ulimit -n 65536 || {
+        echo "Error: could not increase max open files limit to 65536."
+        exit 8
+    }
 
     umask 0022
 
@@ -59,8 +73,15 @@ start() {
 
 stop() {
     echo -n $"Stopping $prog: "
-    ## graceful shutdown with SIGINT
-    killproc -p $pidfile $exec -INT
+    killproc -p $pidfile $exec
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile $pidfile
+    return $retval
+}
+
+force_stop() {
+    pkill -9 -xf 'ruby /opt/athena/fluentd/bin/fluentd -c /etc/athena-fluentd/athena-fluentd.conf'
     retval=$?
     echo
     [ $retval -eq 0 ] && rm -f $lockfile $pidfile
@@ -76,6 +97,20 @@ reload() {
     echo -n $"Reloading $prog: "
     killproc -p $pidfile $exec -HUP
     echo
+}
+
+flush() {
+    echo -n $"Flushing buffer of $prog: "
+    killproc -p $pidfile $exec -USR1
+    echo
+}
+
+debug() {
+    echo -n $"Gathering debug info for $prog: "
+    killproc -p $pidfile $exec -CONT
+    echo
+    cat /tmp/sigdump-$(cat $pidfile).log
+    rm -f /tmp/sigdump-$(cat $pidfile).log
 }
 
 force_reload() {
@@ -94,11 +129,17 @@ rh_status_q() {
 
 case "$1" in
     start)
-        rh_status_q && exit 0
+        rh_status_q && {
+            echo "$prog is already running."
+            exit 0
+        }
         $1
         ;;
     stop)
-        rh_status_q || exit 0
+        rh_status_q || {
+            echo "$prog is already stopped."
+            exit 0
+        }
         $1
         ;;
     restart)
@@ -108,8 +149,24 @@ case "$1" in
         rh_status_q || exit 7
         $1
         ;;
+    flush)
+        flush
+        ;;
+    debug)
+        debug
+        ;;
     force-reload)
         force_reload
+        ;;
+    force-stop)
+	rh_status_q || {
+            echo "$prog is already stopped."
+            exit 0
+        }
+        force_stop && {
+            echo "$prog was killed."
+            exit 0
+        }
         ;;
     status)
         rh_status
@@ -119,7 +176,7 @@ case "$1" in
         restart
         ;;
     *)
-        echo $"Usage: $0 {start|stop|status|restart|condrestart|try-restart|reload|force-reload}"
+        echo $"Usage: $0 {start|stop|status|restart|flush|debug|condrestart|try-restart|reload|force-reload|force-stop}"
         exit 2
 esac
 exit $?
