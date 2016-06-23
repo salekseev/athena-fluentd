@@ -63,7 +63,7 @@ start() {
     ## &; action" but you can do "{cmd &}; action".
     daemon \
         --pidfile=$pidfile \
-        " { bundle exec $exec -c $config --suppress-repeated-stacktrace -q &>> $logfile & } ; printf \$! >| $pidfile "
+        " { bundle exec $exec -c $config --suppress-repeated-stacktrace -qq &>> $logfile & } ; printf \$! >| $pidfile "
 
     retval=$?
     echo
