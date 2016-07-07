@@ -30,6 +30,8 @@ lockfile=/var/lock/subsys/$prog
 
 export LD_PRELOAD="$(ls /usr/lib64/libjemalloc.so* | head -n 1)"
 
+STOPTIMEOUT=120
+
 start() {
     [ -f $scl ] || {
         echo "Error: $scl not found, exiting."
@@ -51,6 +53,7 @@ start() {
 
     umask 0022
 
+    mkdir -m 750 "/var/log/${prog}" "/var/run/${prog}" &> /dev/null
     touch $logfile $pidfile
 
     cd $dir
@@ -72,8 +75,8 @@ start() {
 }
 
 stop() {
-    echo -n $"Stopping $prog: "
-    killproc -p $pidfile $exec
+    echo -n $"Stopping ${prog}: "
+    killproc -p "${pidfile}" -d "${STOPTIMEOUT}" "$prog"
     retval=$?
     echo
     [ $retval -eq 0 ] && rm -f $lockfile $pidfile
@@ -159,7 +162,7 @@ case "$1" in
         force_reload
         ;;
     force-stop)
-	rh_status_q || {
+        rh_status_q || {
             echo "$prog is already stopped."
             exit 0
         }
