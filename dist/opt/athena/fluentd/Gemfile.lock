@@ -196,6 +196,3 @@ DEPENDENCIES
   oj (= 2.15.1)
   snappy (= 0.0.15)
   string-scrub (= 0.0.5)
-
-BUNDLED WITH
-   1.11.2
