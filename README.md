@@ -9,6 +9,4 @@ yum install gcc gcc-c++ make patch file libicu-devel zlib-devel libyaml-devel li
 - Run install-gems.sh
 ./install-gems.sh
 
-- build rpm, and update the --iteration parameter:
-cd dist
-opt/athena/fluentd/bin/fpm -f -s dir -t rpm -n athena-fluentd -a x86_64 -v 0.12.20 --iteration <change this> --epoch 0 --config-files etc/fluent/fluent.conf --rpm-os linux --license 'Apache License, Version 2.0' --description 'FluentD Log Collector' .
+- build the rpm by using the package.sh script. Be sure to update the "--iteration" parameter in the script before running it.
