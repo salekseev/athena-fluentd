@@ -13,12 +13,12 @@ GEM
     archive-tar-minitar (0.5.2)
     arr-pm (0.0.10)
       cabin (> 0)
-    aws-sdk (2.4.3)
-      aws-sdk-resources (= 2.4.3)
-    aws-sdk-core (2.4.3)
+    aws-sdk (2.5.1)
+      aws-sdk-resources (= 2.5.1)
+    aws-sdk-core (2.5.1)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.4.3)
-      aws-sdk-core (= 2.4.3)
+    aws-sdk-resources (2.5.1)
+      aws-sdk-core (= 2.5.1)
     backports (3.6.8)
     bzip2-ffi (1.0.0)
       ffi (~> 1.0)
@@ -74,11 +74,10 @@ GEM
       fluent-mixin-rewrite-tag-name
       fluentd (>= 0.10.17)
       graphite-api
-    fluent-plugin-kafka (0.2.2)
+    fluent-plugin-kafka (0.3.0.rc1)
       fluentd (>= 0.10.58, < 2)
       ltsv
-      poseidon_cluster
-      ruby-kafka (~> 0.3.9)
+      ruby-kafka (~> 0.3.11)
       zookeeper
     fluent-plugin-multiprocess (0.2.0)
       fluentd (>= 0.10.0, < 2)
@@ -151,11 +150,7 @@ GEM
       insist
       mustache (= 0.99.8)
       stud
-    poseidon (0.0.5)
-    poseidon_cluster (0.3.3)
-      poseidon (>= 0.0.5, < 0.1.0)
-      zk
-    ruby-kafka (0.3.11)
+    ruby-kafka (0.3.12)
     ruby-xz (0.2.3)
       ffi (~> 1.9)
       io-like (~> 0.3)
@@ -175,8 +170,6 @@ GEM
     webhdfs (0.8.0)
       addressable
     yajl-ruby (1.2.1)
-    zk (1.9.6)
-      zookeeper (~> 1.4.0)
     zookeeper (1.4.11)
     zscheduler (0.0.6)
       eventmachine
@@ -195,7 +188,7 @@ DEPENDENCIES
   fluent-plugin-forest (= 0.3.0)
   fluent-plugin-geoip (= 0.6.1)
   fluent-plugin-graphite (= 0.0.6)
-  fluent-plugin-kafka (= 0.2.2)
+  fluent-plugin-kafka (= 0.3.0.rc1)
   fluent-plugin-multiprocess (= 0.2.0)
   fluent-plugin-newsyslog!
   fluent-plugin-ping-message (= 0.2.0)
