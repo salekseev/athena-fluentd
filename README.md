@@ -1,4 +1,4 @@
-- clone this repo onto a target OS.
+- clone this repo onto a target OS; easiest to use docker image centos:6.
 
 - if you're using a plain CentOS 6.7 install, you'll need some repos first and software collections:
 yum install epel-release centos-release-scl

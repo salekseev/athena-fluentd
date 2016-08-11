@@ -1,11 +1,3 @@
-GIT
-  remote: https://github.com/athenahealth/fluent-plugin-newsyslog.git
-  revision: 905960ab07f3103415df8bd41e09dd5741a9221a
-  tag: v0.1.0
-  specs:
-    fluent-plugin-newsyslog (0.1.0)
-      fluentd (>= 0.10.59)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -13,12 +5,12 @@ GEM
     archive-tar-minitar (0.5.2)
     arr-pm (0.0.10)
       cabin (> 0)
-    aws-sdk (2.5.1)
-      aws-sdk-resources (= 2.5.1)
-    aws-sdk-core (2.5.1)
+    aws-sdk (2.5.3)
+      aws-sdk-resources (= 2.5.3)
+    aws-sdk-core (2.5.3)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.5.1)
-      aws-sdk-core (= 2.5.1)
+    aws-sdk-resources (2.5.3)
+      aws-sdk-core (= 2.5.3)
     backports (3.6.8)
     bzip2-ffi (1.0.0)
       ffi (~> 1.0)
@@ -92,7 +84,7 @@ GEM
       fluentd
     fluent-plugin-rewrite-tag-filter (1.5.5)
       fluentd
-    fluent-plugin-s3 (0.6.8)
+    fluent-plugin-s3 (0.7.0)
       aws-sdk (~> 2)
       fluent-mixin-config-placeholders (>= 0.3.0)
       fluentd (>= 0.10.58, < 2)
@@ -108,13 +100,14 @@ GEM
       fluentd (>= 0.10.59)
       snappy (>= 0.0.13)
       webhdfs (>= 0.6.0)
-    fluentd (0.12.26)
-      cool.io (>= 1.2.2, < 2.0.0)
+    fluentd (0.14.2)
+      cool.io (>= 1.4.3, < 2.0.0)
       http_parser.rb (>= 0.5.1, < 0.7.0)
       json (>= 1.4.3)
-      msgpack (>= 0.5.11, < 0.6.0)
+      msgpack (>= 0.7.0)
+      serverengine (>= 1.6.4)
       sigdump (~> 0.2.2)
-      string-scrub (>= 0.0.3, <= 0.0.5)
+      strptime (>= 0.1.7)
       tzinfo (>= 1.0.0)
       tzinfo-data (>= 1.0.0)
       yajl-ruby (~> 1.0)
@@ -139,7 +132,7 @@ GEM
     jmespath (1.3.1)
     json (1.8.3)
     ltsv (0.1.0)
-    msgpack (0.5.12)
+    msgpack (1.0.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     mustache (0.99.8)
@@ -159,6 +152,7 @@ GEM
     sigdump (0.2.4)
     snappy (0.0.15)
     string-scrub (0.0.5)
+    strptime (0.1.8)
     stud (0.0.22)
     thread_safe (0.3.5)
     thrift (0.8.0)
@@ -190,16 +184,15 @@ DEPENDENCIES
   fluent-plugin-graphite (= 0.0.6)
   fluent-plugin-kafka (= 0.3.0.rc1)
   fluent-plugin-multiprocess (= 0.2.0)
-  fluent-plugin-newsyslog!
   fluent-plugin-ping-message (= 0.2.0)
   fluent-plugin-record-modifier (= 0.4.1)
   fluent-plugin-retag (= 0.0.2)
   fluent-plugin-rewrite-tag-filter (= 1.5.5)
-  fluent-plugin-s3 (= 0.6.8)
+  fluent-plugin-s3 (= 0.7.0)
   fluent-plugin-scribe (= 0.10.14)
   fluent-plugin-string-scrub (= 0.1.0)
   fluent-plugin-webhdfs (= 0.5.1)
-  fluentd (= 0.12.26)
+  fluentd (= 0.14.2)
   fpm (= 1.6.2)
   oj (= 2.17.1)
   snappy (= 0.0.15)
