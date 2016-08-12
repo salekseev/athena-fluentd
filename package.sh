@@ -8,7 +8,7 @@ rm -f *.rpm
 # Increment the --iteration when packaging.
 opt/athena/fluentd/bin/fpm -f -s dir -t rpm \
     -n athena-fluentd -a x86_64 \
-    -v 0.14.2 --iteration 1 --epoch 0 \
+    -v 0.12.27 --iteration 1 --epoch 0 \
     --config-files etc/athena-fluentd/athena-fluentd.conf \
     --rpm-os linux --license 'Apache License, Version 2.0' \
     --description 'FluentD Log Collector' \
