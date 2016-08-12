@@ -1,9 +1,12 @@
 #!/bin/bash
-scl enable rh-ruby22 - << \EOF
+
 . /opt/rh/rh-ruby22/enable
-cd dist/opt/athena/fluentd
+
 cd dist
 rm -f *.rpm
+
+test -d var/log/athena-fluentd  || mkdir -p var/log/athena-fluentd
+test -d var/run/athena-fluentd  || mkdir -p var/run/athena-fluentd
 
 # Increment the --iteration when packaging.
 opt/athena/fluentd/bin/fpm -f -s dir -t rpm \
@@ -26,4 +29,3 @@ opt/athena/fluentd/bin/fpm -f -s dir -t rpm \
     -d rh-ruby22-rubygems \
     -d rh-ruby22-runtime \
     .
-EOF
