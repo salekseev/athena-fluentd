@@ -28,4 +28,5 @@ opt/athena/fluentd/bin/fpm -f -s dir -t rpm \
     -d rh-ruby22-rubygem-thor \
     -d rh-ruby22-rubygems \
     -d rh-ruby22-runtime \
+    --rpm-posttrans ../post-install.sh \
     .
